@@ -18,3 +18,5 @@ Frontend de la plataforma AlerTrace con Next.js 14 y React.
 git clone https://github.com/AlemEsv/alertrace-frontend.git
 cd alertrace-frontend
 ```
+
+version 1.1.0
