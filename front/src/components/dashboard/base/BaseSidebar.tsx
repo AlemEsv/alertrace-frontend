@@ -2,47 +2,40 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  LayoutDashboard, 
-  Package, 
-  Activity, 
-  AlertTriangle, 
-  BarChart3,
-  Settings,
-  LogOut,
-  User,
-  Building2,
-  Users,
-  Factory
-} from 'lucide-react'
-import { AlertRaceLogo } from '../AlertRaceLogo'
+import { LogOut, User } from 'lucide-react'
+import { AlertRaceLogo } from '@/components/AlertRaceLogo'
+import type { DashboardTheme } from '@/lib/design-system/themes'
+import * as Icons from 'lucide-react'
 
-export function SidebarEmpresa() {
+interface BaseSidebarProps {
+  theme: DashboardTheme
+  className?: string
+}
+
+export function BaseSidebar({ theme, className }: BaseSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
 
   const handleLogout = () => {
-    // Limpiar datos de sesión
     localStorage.removeItem('token')
     localStorage.removeItem('userType')
     localStorage.removeItem('userEmail')
     localStorage.removeItem('userName')
+    localStorage.removeItem('userRole')
     router.push('/')
   }
-  
-  const navigation = [
-    { name: 'General', href: '/dashboard-empresa', icon: LayoutDashboard },
-    { name: 'Sensores', href: '/dashboard-empresa/areas', icon: Factory },
-    { name: 'Personal', href: '/dashboard-empresa/personal', icon: Users },
-    { name: 'Alertas', href: '/dashboard-empresa/alertas-empresa', icon: AlertTriangle },
-    { name: 'Configuración', href: '/dashboard-empresa/configuracion-empresa', icon: Settings }
-  ]
+
+  // Obtener iconos dinámicamente
+  const getIcon = (iconName: string) => {
+    const Icon = (Icons as any)[iconName]
+    return Icon || Icons.LayoutDashboard
+  }
 
   return (
-    <div className="w-64 bg-white dark:bg-gray-800 shadow-lg h-screen fixed left-0 top-0 z-40">
+    <div className={`w-64 bg-white dark:bg-gray-800 shadow-lg h-screen fixed left-0 top-0 z-40 ${className || ''}`}>
       {/* Logo y título */}
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <Link href="/dashboard-empresa" className="flex items-center">
+        <Link href={theme.navigation.items[0]?.href || '/'} className="flex items-center">
           <AlertRaceLogo 
             width={120} 
             height={30} 
@@ -50,15 +43,15 @@ export function SidebarEmpresa() {
           />
         </Link>
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 ml-1">
-          Industria
+          {theme.header.subtitle}
         </p>
       </div>
       
       {/* Navegación */}
       <nav className="mt-6 px-3">
-        {navigation.map((item) => {
+        {theme.navigation.items.map((item) => {
           const isActive = pathname === item.href
-          const Icon = item.icon
+          const Icon = getIcon(item.icon)
           
           return (
             <Link
@@ -66,7 +59,7 @@ export function SidebarEmpresa() {
               href={item.href}
               className={`flex items-center px-4 py-3 mb-2 text-sm font-medium rounded-lg transition-colors ${
                 isActive
-                  ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900/20 dark:text-blue-400'
+                  ? `${theme.colors.classes.primaryActive}`
                   : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
               }`}
             >
@@ -80,15 +73,15 @@ export function SidebarEmpresa() {
       {/* Información del usuario */}
       <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700">
         <div className="flex items-center space-x-3 mb-4">
-          <div className="bg-blue-100 dark:bg-blue-900/20 p-2 rounded-full">
-            <User className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+          <div className={`${theme.colors.classes.primaryBg} p-2 rounded-full`}>
+            <User className={`h-5 w-5 ${theme.colors.classes.primary}`} />
           </div>
           <div>
             <p className="text-sm font-medium text-gray-900 dark:text-white">
-              {localStorage.getItem('userName') || 'Empresa'}
+              {typeof window !== 'undefined' ? localStorage.getItem('userName') || theme.displayName : theme.displayName}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              {localStorage.getItem('userEmail') || 'empresa@sachatrace.com'}
+              {typeof window !== 'undefined' ? localStorage.getItem('userEmail') || '' : ''}
             </p>
           </div>
         </div>
@@ -104,3 +97,4 @@ export function SidebarEmpresa() {
     </div>
   )
 }
+

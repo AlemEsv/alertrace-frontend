@@ -1,24 +1,35 @@
-import { Sidebar } from '@/components/dashboard/sidebar'
-import { NotificationsDropdown } from '@/components/shared/notifications-dropdown'
-import { BottomNav } from '@/components/mobile/bottom-nav'
-import { AlertRaceLogo } from '@/components/AlertRaceLogo'
+'use client'
 
-export default function DashboardLayout({
+import { ReactNode, ComponentType } from 'react'
+import { NotificationsDropdown } from '@/components/shared/notifications-dropdown'
+import { AlertRaceLogo } from '@/components/AlertRaceLogo'
+import type { DashboardTheme } from '@/lib/design-system/themes'
+
+interface BaseLayoutProps {
+  children: ReactNode
+  theme: DashboardTheme
+  SidebarComponent: ComponentType
+  BottomNavComponent: ComponentType
+  userType: 'empresa' | 'agricultor' | 'admin'
+}
+
+export function BaseLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+  theme,
+  SidebarComponent,
+  BottomNavComponent,
+  userType,
+}: BaseLayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="flex">
         {/* Sidebar - oculto en móvil */}
         <div className="hidden md:block">
-          <Sidebar />
+          <SidebarComponent />
         </div>
         
         {/* Área principal con navbar integrada */}
         <div className="flex-1 md:ml-64">
-          {/* Navbar responsiva que respeta el sidebar */}
           <nav className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between h-16">
@@ -31,15 +42,15 @@ export default function DashboardLayout({
                         className="h-5 w-auto"
                       />
                       <span className="hidden sm:inline text-lg md:text-xl font-bold text-gray-900 dark:text-white">
-                        Dashboard
+                        {theme.header.title}
                       </span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <NotificationsDropdown userType="agricultor" />
+                  <NotificationsDropdown userType={userType} />
                   <div className="hidden md:block text-sm text-gray-500 dark:text-gray-400">
-                    Agricultor
+                    {theme.displayName}
                   </div>
                 </div>
               </div>
@@ -56,7 +67,8 @@ export default function DashboardLayout({
       </div>
 
       {/* Bottom Navigation - solo visible en móvil */}
-      <BottomNav />
+      <BottomNavComponent />
     </div>
   )
 }
+
