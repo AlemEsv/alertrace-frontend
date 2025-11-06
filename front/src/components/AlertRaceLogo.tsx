@@ -56,14 +56,18 @@ export function AlertRaceLogo({
   }
 
   // Variant 'full' (default)
+  // Extraer clases de altura para aplicarlas tanto al contenedor como a la imagen
+  const heightClass = className.match(/h-[^\s]*/)?.[0] || ''
+  const otherClasses = className.replace(/h-[^\s]*/g, '').trim()
+  
   return (
-    <div className={`flex items-center ${className}`}>
+    <div className={`flex items-center ${heightClass || ''} ${otherClasses}`}>
       <Image
         src={getLogoSrc()}
         alt="AlertRace"
         width={width}
         height={height}
-        className="object-contain"
+        className={`object-contain ${heightClass || ''} w-auto`}
       />
     </div>
   )

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { User, MapPin, Phone, Mail, Settings, Bell, Shield, Save, Eye, EyeOff, Key, Building } from 'lucide-react'
 import { api } from '@/lib/api'
+import { SectionHeader } from '@/components/dashboard/base/SectionHeader'
 
 interface PerfilEmpresa {
   nombre: string
@@ -132,12 +133,11 @@ export default function ConfiguracionEmpresaPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Configuración</h1>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Gestiona el perfil de la empresa y preferencias del sistema</p>
-        </div>
-      </div>
+      <SectionHeader
+        icon={Settings}
+        title="Configuración"
+        description="Gestiona el perfil de la empresa y preferencias del sistema"
+      />
 
       {/* Navegación por pestañas */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">

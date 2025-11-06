@@ -37,14 +37,11 @@ export function BaseSidebar({ theme, className }: BaseSidebarProps) {
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
         <Link href={theme.navigation.items[0]?.href || '/'} className="flex items-center">
           <AlertRaceLogo 
-            width={120} 
-            height={30} 
+            width={96} 
+            height={24} 
             className="h-6 w-auto"
           />
         </Link>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 ml-1">
-          {theme.header.subtitle}
-        </p>
       </div>
       
       {/* Navegación */}

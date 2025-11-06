@@ -31,28 +31,17 @@ export function BaseLayout({
         {/* Área principal con navbar integrada */}
         <div className="flex-1 md:ml-64">
           <nav className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-            <div className="px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between h-16">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center space-x-3">
-                      <AlertRaceLogo 
-                        width={100} 
-                        height={25} 
-                        className="h-5 w-auto"
-                      />
-                      <span className="hidden sm:inline text-lg md:text-xl font-bold text-gray-900 dark:text-white">
-                        {theme.header.title}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <NotificationsDropdown userType={userType} />
-                  <div className="hidden md:block text-sm text-gray-500 dark:text-gray-400">
-                    {theme.displayName}
-                  </div>
-                </div>
+            <div className="px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
+              <span className="hidden sm:inline text-lg md:text-xl font-bold text-gray-900 dark:text-white">
+                {theme.header.title}
+              </span>
+              <div className="flex items-center gap-4">
+                {userType !== 'admin' && (
+                  <NotificationsDropdown userType={userType as 'empresa' | 'agricultor'} />
+                )}
+                <span className="hidden md:block text-sm text-gray-500 dark:text-gray-400">
+                  {theme.displayName}
+                </span>
               </div>
             </div>
           </nav>

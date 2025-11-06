@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Plus, Mail, Phone, Edit, Trash2, CreditCard, Lock, X } from 'lucide-react'
+import { Plus, Mail, Phone, Edit, Trash2, CreditCard, Lock, X, Users } from 'lucide-react'
 import { api } from '@/lib/api'
+import { SectionHeader } from '@/components/dashboard/base/SectionHeader'
 
 interface PersonalUser {
   id: string
@@ -201,16 +202,13 @@ export default function PersonalEmpresaPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Gestión de Personal</h1>
-            <p className="text-sm sm:text-base text-gray-600 mt-1">
-              Administra usuarios, roles y permisos del sistema
-            </p>
-          </div>
-          <div className="flex items-center space-x-3">
-            <div className="text-sm text-gray-500">
+      <SectionHeader
+        icon={Users}
+        title="Gestión de Personal"
+        description="Administra usuarios, roles y permisos del sistema"
+        leftActions={(
+          <>
+            <div className="text-sm text-gray-500 hidden sm:block">
               {users.filter(u => u.status === 'active').length} de {users.length} usuarios activos
             </div>
             <button
@@ -220,9 +218,9 @@ export default function PersonalEmpresaPage() {
               <Plus className="w-4 h-4 mr-2" />
               Agregar Personal
             </button>
-          </div>
-        </div>
-      </div>
+          </>
+        )}
+      />
 
       {/* Personal Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

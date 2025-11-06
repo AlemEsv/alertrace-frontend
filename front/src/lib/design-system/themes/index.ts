@@ -1,6 +1,9 @@
-export { agricultorTheme } from './agricultor-theme'
-export { empresaTheme } from './empresa-theme'
-export { adminTheme } from './admin-theme'
+import { agricultorTheme } from './agricultor-theme'
+import { empresaTheme } from './empresa-theme'
+import { adminTheme } from './admin-theme'
+
+// Re-exportar los temas
+export { agricultorTheme, empresaTheme, adminTheme }
 
 export type DashboardTheme = typeof agricultorTheme | typeof empresaTheme | typeof adminTheme
 

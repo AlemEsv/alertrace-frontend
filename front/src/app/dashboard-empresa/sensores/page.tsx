@@ -22,6 +22,7 @@ import {
 } from 'lucide-react'
 import { api } from '@/lib/api'
 import type { SensorResponse as APISensorData } from '@/types'
+import { SectionHeader } from '@/components/dashboard/base/SectionHeader'
 
 // NODO PROMPT: AREAS_GESTION - Página de gestión de áreas de producción
 
@@ -236,68 +237,64 @@ export default function AreasEmpresaPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center">
-            <MapPin className="h-6 w-6 md:h-8 md:w-8 text-blue-600 mr-2 md:mr-3" />
-            Sensores
-          </h1>
-          <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">
-            Gestión modular de sensores organizados por áreas de producción
-          </p>
-        </div>
-        <div className="flex space-x-3">
-          <button
-            onClick={() => alert('Funcionalidad de añadir sensor en desarrollo. Por ahora puedes ver los sensores existentes en las áreas.')}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <Activity className="h-4 w-4 mr-2" />
-            Añadir Sensor
-          </button>
-          <button
-            onClick={handleCrearArea}
-            className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Nueva Área
-          </button>
-        </div>
-      </div>
+      <SectionHeader
+        icon={Activity}
+        title="Sensores"
+        description="Gestión modular de sensores organizados por áreas de producción"
+        leftActions={(
+          <>
+            <button
+              onClick={() => alert('Funcionalidad de añadir sensor en desarrollo. Por ahora puedes ver los sensores existentes en las áreas.')}
+              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Añadir Sensor
+            </button>
+            <button
+              onClick={handleCrearArea}
+              className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Nueva Área
+            </button>
+          </>
+        )}
+      />
 
       {/* Estadísticas */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="dashboard-card p-4">
+        <div className="dashboard-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
           <div className="flex items-center justify-between">
-            <div>
+            <div className="flex flex-col gap-1">
               <p className="text-sm text-gray-600 dark:text-gray-400">Total Áreas</p>
               <p className="text-2xl font-bold text-gray-900 dark:text-white">{estadisticas.total}</p>
             </div>
             <MapPin className="h-8 w-8 text-blue-500" />
           </div>
         </div>
-        <div className="dashboard-card p-4">
+        <div className="dashboard-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
           <div className="flex items-center justify-between">
-            <div>
+            <div className="flex flex-col gap-1">
               <p className="text-sm text-gray-600 dark:text-gray-400">Activas</p>
               <p className="text-2xl font-bold text-green-600">{estadisticas.activas}</p>
             </div>
             <CheckCircle className="h-8 w-8 text-green-500" />
           </div>
         </div>
-        <div className="dashboard-card p-4">
+        <div className="dashboard-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
           <div className="flex items-center justify-between">
-            <div>
+            <div className="flex flex-col gap-1">
               <p className="text-sm text-gray-600 dark:text-gray-400">Mantenimiento</p>
               <p className="text-2xl font-bold text-yellow-600">{estadisticas.enMantenimiento}</p>
             </div>
             <AlertTriangle className="h-8 w-8 text-yellow-500" />
           </div>
         </div>
-        <div className="dashboard-card p-4">
+        <div className="dashboard-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
           <div className="flex items-center justify-between">
-            <div>
+            <div className="flex flex-col gap-1">
               <p className="text-sm text-gray-600 dark:text-gray-400">Total Sensores</p>
               <p className="text-2xl font-bold text-purple-600">{estadisticas.totalSensores}</p>
             </div>
@@ -375,10 +372,10 @@ export default function AreasEmpresaPage() {
           const estadoConfig = estadosArea[area.estado]
           
           return (
-            <div key={area.id} className="dashboard-card p-6 hover:shadow-lg transition-shadow">
+            <div key={area.id} className="dashboard-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow flex flex-col gap-4">
               {/* Header del área */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
                   <div 
                     className="w-4 h-4 rounded-full"
                     style={{ backgroundColor: area.color }}
@@ -399,12 +396,12 @@ export default function AreasEmpresaPage() {
               </div>
 
               {/* Descripción */}
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 {area.descripcion}
               </p>
 
               {/* Información adicional */}
-              <div className="space-y-2 mb-4">
+              <div className="flex flex-col gap-2">
                 <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                   <span className="font-medium mr-2">Responsable:</span>
                   {area.responsable}
@@ -420,11 +417,11 @@ export default function AreasEmpresaPage() {
               </div>
 
               {/* Sensores */}
-              <div className="mb-4">
+              <div>
                 <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
                   Sensores ({area.sensores.length})
                 </h4>
-                <div className="space-y-1">
+                <div className="flex flex-col gap-1">
                   {area.sensores.slice(0, 3).map((sensor) => {
                     const sensorConfig = obtenerConfigSensor(sensor.tipo)
                     const SensorIcon = sensorConfig.icon
@@ -432,7 +429,7 @@ export default function AreasEmpresaPage() {
                     
                     return (
                       <div key={sensor.id} className="flex items-center justify-between text-xs">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center gap-2">
                           <SensorIcon className={`h-3 w-3 ${sensorColor}`} />
                           <span className="text-gray-600 dark:text-gray-400">{sensor.nombre}</span>
                         </div>
@@ -455,7 +452,7 @@ export default function AreasEmpresaPage() {
               </div>
 
               {/* Acciones */}
-              <div className="flex space-x-2">
+              <div className="flex gap-2">
                 <button
                   onClick={() => handleEditarArea(area)}
                   className="flex-1 flex items-center justify-center px-3 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"

@@ -29,7 +29,7 @@ export const empresaTheme = {
   navigation: {
     items: [
       { name: 'General', href: '/dashboard-empresa', icon: 'LayoutDashboard' },
-      { name: 'Sensores', href: '/dashboard-empresa/areas', icon: 'Factory' },
+      { name: 'Sensores', href: '/dashboard-empresa/sensores', icon: 'Activity' },
       { name: 'Personal', href: '/dashboard-empresa/personal', icon: 'Users' },
       { name: 'Alertas', href: '/dashboard-empresa/alertas-empresa', icon: 'AlertTriangle' },
       { name: 'Configuración', href: '/dashboard-empresa/configuracion-empresa', icon: 'Settings' },

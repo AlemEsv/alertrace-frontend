@@ -36,3 +36,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# docs markdown en la raíz del paquete front
+/ARCHITECTURE.md
+/ARCHIVOS_OBSOLETOS.md
+/CONFIGURACION_API.md
+/ESTRUCTURA.md
+/ESTRUCTURA_APP.md

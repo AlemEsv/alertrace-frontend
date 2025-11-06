@@ -19,6 +19,7 @@ import {
   CheckCircle2
 } from 'lucide-react'
 import { api, AlertaData } from '@/lib/api'
+import { SectionHeader } from '@/components/dashboard/base/SectionHeader'
 
 interface Alerta {
   id: string
@@ -214,17 +215,11 @@ export default function AlertasEmpresaPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center">
-            <Bell className="h-6 w-6 md:h-8 md:w-8 text-blue-600 mr-2 md:mr-3" />
-            Sistema de Alertas
-          </h1>
-          <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">
-            Monitoreo y gestión de alertas del sistema industrial
-          </p>
-        </div>
-        <div className="flex space-x-3">
+      <SectionHeader
+        icon={AlertTriangle}
+        title="Sistema de Alertas"
+        description="Monitoreo y gestión de alertas del sistema industrial"
+        leftActions={(
           <button
             onClick={marcarTodasComoLeidas}
             className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
@@ -232,8 +227,8 @@ export default function AlertasEmpresaPage() {
             <CheckCircle2 className="h-4 w-4 mr-2" />
             Marcar Todas como Leídas
           </button>
-        </div>
-      </div>
+        )}
+      />
 
       {/* Estadísticas */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
