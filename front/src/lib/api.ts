@@ -457,6 +457,51 @@ export const api = {
     
     async getSensorData(sensorId: string): Promise<any> {
       return apiRequest(`${API_BASE_URL}/api/v1/sensores/${sensorId}/lecturas`)
+    },
+    
+    async updateSensor(sensorId: string, data: any): Promise<any> {
+      return apiRequest(`${API_BASE_URL}/api/v1/sensores/${sensorId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(data)
+      })
+    },
+    
+    async moveSensors(fromUbicacion: string, toUbicacion: string, sensorIds?: number[]): Promise<any> {
+      return apiRequest(`${API_BASE_URL}/api/v1/sensores/move`, {
+        method: 'POST',
+        body: JSON.stringify({
+          from_ubicacion: fromUbicacion,
+          to_ubicacion: toUbicacion,
+          sensor_ids: sensorIds
+        })
+      })
+    },
+    
+    async deleteArea(ubicacion: string, moveTo?: string): Promise<any> {
+      const url = new URL(`${API_BASE_URL}/api/v1/sensores/by-ubicacion/${encodeURIComponent(ubicacion)}`)
+      if (moveTo) {
+        url.searchParams.set('move_to', moveTo)
+      }
+      return apiRequest(url.toString(), {
+        method: 'DELETE'
+      })
+    },
+    
+    async createSensor(data: {
+      device_id: string
+      nombre: string
+      tipo: string
+      id_cultivo: number
+      ubicacion_sensor?: string
+      coordenadas_lat?: number
+      coordenadas_lng?: number
+      intervalo_lectura?: number
+      limites?: Record<string, { min: number | ''; max: number | '' }>
+    }): Promise<any> {
+      return apiRequest(`${API_BASE_URL}/api/v1/sensores/`, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
     }
   }
 }
