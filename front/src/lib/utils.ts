@@ -34,6 +34,27 @@ export function formatTime(date: Date | string): string {
   })
 }
 
+export function formatDistanceToNow(date: Date): string {
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffSecs = Math.floor(diffMs / 1000)
+  const diffMins = Math.floor(diffSecs / 60)
+  const diffHours = Math.floor(diffMins / 60)
+  const diffDays = Math.floor(diffHours / 24)
+
+  if (diffSecs < 60) {
+    return 'hace unos segundos'
+  } else if (diffMins < 60) {
+    return `hace ${diffMins} minuto${diffMins !== 1 ? 's' : ''}`
+  } else if (diffHours < 24) {
+    return `hace ${diffHours} hora${diffHours !== 1 ? 's' : ''}`
+  } else if (diffDays < 7) {
+    return `hace ${diffDays} día${diffDays !== 1 ? 's' : ''}`
+  } else {
+    return formatDateTime(date)
+  }
+}
+
 // Utilidades para formateo de números
 export function formatNumber(num: number, decimals: number = 2): string {
   return num.toLocaleString('es-ES', {
