@@ -30,6 +30,7 @@ export const agricultorTheme = {
     items: [
       { name: 'General', href: '/dashboard-agricultor', icon: 'LayoutDashboard' },
       { name: 'Alertas', href: '/dashboard-agricultor/alertas-agricultor', icon: 'AlertTriangle' },
+      { name: 'Tendencias', href: '/dashboard-agricultor/tendencias', icon: 'TrendingUp' },
       { name: 'Clima', href: '/dashboard-agricultor/clima', icon: 'Activity' },
       { name: 'Configuración', href: '/dashboard-agricultor/configuracion-agricultor', icon: 'Settings' },
     ],
